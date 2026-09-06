@@ -166,3 +166,16 @@ A Georgian voice AI workflow is ready for a controlled pilot when it has:
 ## License
 
 This checklist is shared under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You may reuse and adapt it with attribution to OMO AI.
+
+
+## Further reading / დამატებითი მასალები
+
+These companion guides are published by OMO, the maintainer of this repository. The checklist above remains vendor-neutral.
+
+- [Expanded readiness guide — English](https://omo.ge/en/resources/georgian-voice-ai-readiness-checklist)
+- [What is a Georgian voice AI agent? — English](https://omo.ge/en/resources/georgian-voice-ai-agent)
+
+დამატებითი განმარტებები ქართულად, ამ რეპოზიტორიის შემქმნელი OMO-სგან:
+
+- [ქართული ხმოვანი AI-ის მზადყოფნის ვრცელი სია](https://omo.ge/resources/georgian-voice-ai-readiness-checklist)
+- [რა არის ქართული ხმოვანი AI აგენტი და როგორ მუშაობს](https://omo.ge/resources/georgian-voice-ai-agent)
