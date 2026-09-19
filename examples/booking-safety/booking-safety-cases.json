@@ -1,0 +1,749 @@
+{
+  "schema_version": "1.1",
+  "title": "Synthetic Georgian booking-safety cases",
+  "synthetic": true,
+  "prepared_for": "OMO / OMO AI",
+  "timezone": "Asia/Tbilisi",
+  "publication_status": "educational_resource",
+  "source_urls": [
+    "https://omo.ge/",
+    "https://omo.ge/media-kit",
+    "https://omo.ge/resources/automated-appointment-booking",
+    "https://omo.ge/resources/voice-ai-quality-testing",
+    "https://github.com/omo-ge/georgian-voice-ai-readiness-checklist"
+  ],
+  "attribution": "Based on the Georgian Voice AI Readiness Checklist by OMO AI (CC BY 4.0). Changes: original synthetic bilingual cases, explicit state/action boundaries and offline validation added. These examples do not establish product performance.",
+  "disclaimer": "All cases, utterances, timestamps and destination results are synthetic. These local checks do not test OMO, an LLM, a live integration or product performance. No runtime validation has occurred.",
+  "policy": {
+    "availability_max_age_seconds": 120,
+    "description": "An illustrative synthetic freshness window, inclusive at 120 seconds; not an OMO setting, measured latency or universal safety threshold. Even fresh evidence permits only a conditional slot write with durable idempotency. Every offer ID binds an immutable service/resource/person/time tuple within its case."
+  },
+  "cases": [
+    {
+      "case_id": "BS-01",
+      "scenario": "current_offer_confirmed",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_01",
+        "write_status": "not_started",
+        "create_attempts": 0,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "დიახ, დამაჯავშნეთ ხვალ 15:00-დან 15:30-მდე, თბილისის დროით, ამ შეთავაზებული მომსახურებისთვის.",
+      "translation_en": "Yes, book me for this offered service tomorrow from 15:00 to 15:30, Tbilisi time.",
+      "evidence": {
+        "initial_request": {
+          "utterance_ka": "ხვალ 15:00 საათზე ამ მომსახურებაზე ჩაწერა მინდა.",
+          "translation_en": "I would like an appointment for this service tomorrow at 15:00.",
+          "received_at": "2030-05-14T09:59:30+04:00"
+        },
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "confirm",
+          "form": "direct",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": {
+          "source": "synthetic_destination",
+          "offer_id": "offer_A",
+          "observed_at": "2030-05-14T09:59:40+04:00",
+          "status": "available"
+        },
+        "destination_result": null
+      },
+      "expected": {
+        "mode": "create_once",
+        "permitted_next_action": "attempt_guarded_create_once",
+        "max_create_calls": 1,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "repeat_create"
+      ],
+      "rationale": "The synthetic initial request, current immutable offer, direct caller confirmation and fresh matching observation align. The declared destination guards allow at most one conditional create attempt; they are hypothetical requirements, not verified OMO capabilities. Permission to attempt a write is not evidence that a booking exists."
+    },
+    {
+      "case_id": "BS-02",
+      "scenario": "ambiguous_time",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": null,
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_02",
+        "write_status": "not_started",
+        "create_attempts": 0,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "ხვალ სამისკენ ჩამწერეთ.",
+      "translation_en": "Book me tomorrow around three.",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "request_booking",
+          "form": "none",
+          "offer_id": null,
+          "requested_start_at": null
+        },
+        "availability": null,
+        "destination_result": null
+      },
+      "expected": {
+        "mode": "no_write",
+        "permitted_next_action": "clarify_exact_time",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "silently_assume_15_00"
+      ],
+      "rationale": "The isolated synthetic phrase leaves both an exact time and the intended part of the day unresolved. Ask for the intended hour and an exact appointment time in Asia/Tbilisi; do not turn an approximate phrase into a confirmed slot."
+    },
+    {
+      "case_id": "BS-03",
+      "scenario": "corrected_time",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_03",
+        "write_status": "not_started",
+        "create_attempts": 0,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "არა, 15:00-ზე ვერ მოვალ; 16:00 საათი მირჩევნია.",
+      "translation_en": "No, I cannot come at 15:00; I would prefer 16:00.",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "correct_time",
+          "form": "none",
+          "offer_id": "offer_A",
+          "requested_start_at": "2030-05-15T16:00:00+04:00"
+        },
+        "availability": {
+          "source": "synthetic_destination",
+          "offer_id": "offer_A",
+          "observed_at": "2030-05-14T09:59:40+04:00",
+          "status": "available"
+        },
+        "destination_result": null
+      },
+      "expected": {
+        "mode": "no_write",
+        "permitted_next_action": "invalidate_offer_and_check_corrected_time",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "reuse_old_offer_consent",
+        "reuse_offer_id_for_changed_time"
+      ],
+      "rationale": "The correction invalidates authority to book the proposed 15:00 slot. It is not confirmation of a checked 16:00 offer. Check the corrected slot, issue a new immutable offer and obtain confirmation of those details before considering a create."
+    },
+    {
+      "case_id": "BS-04",
+      "scenario": "missing_availability",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_04",
+        "write_status": "not_started",
+        "create_attempts": 0,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "დიახ, ხვალ 15:00 საათზე დამაჯავშნეთ.",
+      "translation_en": "Yes, book me tomorrow at 15:00.",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "confirm",
+          "form": "direct",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": null,
+        "destination_result": null
+      },
+      "expected": {
+        "mode": "no_write",
+        "permitted_next_action": "fetch_current_availability",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "substitute_model_memory_for_availability"
+      ],
+      "rationale": "Caller agreement does not establish availability. The fixture deliberately lacks any destination observation. A real implementation would need an authorized source-of-truth lookup; this corpus performs none, and none of its other availability records are live either."
+    },
+    {
+      "case_id": "BS-05",
+      "scenario": "stale_availability",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_05",
+        "write_status": "not_started",
+        "create_attempts": 0,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "დიახ, ეს დრო მაწყობს, დამაჯავშნეთ.",
+      "translation_en": "Yes, this time works for me; book it.",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "confirm",
+          "form": "direct",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": {
+          "source": "synthetic_destination",
+          "offer_id": "offer_A",
+          "observed_at": "2030-05-14T09:50:00+04:00",
+          "status": "available"
+        },
+        "destination_result": null
+      },
+      "expected": {
+        "mode": "no_write",
+        "permitted_next_action": "refresh_current_availability",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "treat_stale_availability_as_a_reservation"
+      ],
+      "rationale": "The synthetic observation is 600 seconds old, outside this fixture's illustrative 120-second window. Refresh it rather than assuming it still holds. If the offered details change, present and confirm a new offer; even unchanged fresh details still require a guarded write."
+    },
+    {
+      "case_id": "BS-06",
+      "scenario": "superseded_offer_consent",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_B",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T16:00:00+04:00",
+          "end_at": "2030-05-15T16:30:00+04:00"
+        },
+        "prior_offers": [
+          {
+            "offer_id": "offer_A",
+            "service_id": "service_A",
+            "resource_id": "resource_A",
+            "person_id": "person_example",
+            "start_at": "2030-05-15T15:00:00+04:00",
+            "end_at": "2030-05-15T15:30:00+04:00"
+          }
+        ],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_06",
+        "write_status": "not_started",
+        "create_attempts": 0,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "დიახ, პირველ შეთავაზებას ვეთანხმები — ხვალ 15:00 საათს, არა 16:00-ს.",
+      "translation_en": "Yes, I agree to the first offer: tomorrow at 15:00, not 16:00.",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "confirm",
+          "form": "direct",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": {
+          "source": "synthetic_destination",
+          "offer_id": "offer_B",
+          "observed_at": "2030-05-14T09:59:40+04:00",
+          "status": "available"
+        },
+        "destination_result": null
+      },
+      "expected": {
+        "mode": "no_write",
+        "permitted_next_action": "clarify_offer_and_reconfirm",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "transfer_consent_between_offers"
+      ],
+      "rationale": "The direct affirmation names prior offer_A, while the current offer and observation concern offer_B. Do not transfer consent to the newer time or assume the older slot remains available. Resolve the caller's preference, check that slot and present a current offer for confirmation."
+    },
+    {
+      "case_id": "BS-07",
+      "scenario": "quoted_yes",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_07",
+        "write_status": "not_started",
+        "create_attempts": 0,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "მე მხოლოდ ვიმეორებ მაგალითს: „დიახ, დამაჯავშნეთ“; ეს ჩემი თანხმობა არ არის.",
+      "translation_en": "I am only repeating an example: 'Yes, book me'; this is not my consent.",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "quote",
+          "form": "quoted",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": {
+          "source": "synthetic_destination",
+          "offer_id": "offer_A",
+          "observed_at": "2030-05-14T09:59:40+04:00",
+          "status": "available"
+        },
+        "destination_result": null
+      },
+      "expected": {
+        "mode": "no_write",
+        "permitted_next_action": "request_direct_caller_consent",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "keyword_yes_as_authorization"
+      ],
+      "rationale": "A quoted affirmative phrase is not the caller's authorization. The non-consent interpretation is a hand-authored fixture premise, not a language-model result. Ask directly about the actual current offer rather than treating the presence of a yes word as permission."
+    },
+    {
+      "case_id": "BS-08",
+      "scenario": "background_yes",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_08",
+        "write_status": "not_started",
+        "create_attempts": 0,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "კი, დაჯავშნე!",
+      "translation_en": "Yes, book it!",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "background",
+          "intent": "confirm",
+          "form": "direct",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": {
+          "source": "synthetic_destination",
+          "offer_id": "offer_A",
+          "observed_at": "2030-05-14T09:59:40+04:00",
+          "status": "available"
+        },
+        "destination_result": null
+      },
+      "expected": {
+        "mode": "no_write",
+        "permitted_next_action": "request_direct_caller_consent",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "background_speech_as_caller_consent"
+      ],
+      "rationale": "The synthetic speaker label identifies background speech, not an authorized caller response. No audio or speaker-identification system was tested. Require an unambiguous direct caller response; unresolved speaker uncertainty is a reason to clarify or hand off, not to create."
+    },
+    {
+      "case_id": "BS-09",
+      "scenario": "cancelled_before_submit",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": true,
+        "idempotency_key": "idempotency_example_09",
+        "write_status": "not_started",
+        "create_attempts": 0,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "აღარ მინდა ჯავშანი; არაფერი გააგზავნოთ.",
+      "translation_en": "I no longer want the booking; do not submit anything.",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "cancel",
+          "form": "none",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": {
+          "source": "synthetic_destination",
+          "offer_id": "offer_A",
+          "observed_at": "2030-05-14T09:59:40+04:00",
+          "status": "available"
+        },
+        "destination_result": null
+      },
+      "expected": {
+        "mode": "no_write",
+        "permitted_next_action": "acknowledge_cancellation",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "submit_after_withdrawal",
+        "claim_existing_booking_was_deleted"
+      ],
+      "rationale": "The synthetic attempt has not been submitted, and the caller withdraws it. Stop the pending create and acknowledge that nothing will be submitted. This is not a request to delete an existing booking; a cancellation after an uncertain write would first require reconciliation."
+    },
+    {
+      "case_id": "BS-10",
+      "scenario": "existing_booking",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_10",
+        "write_status": "confirmed",
+        "create_attempts": 1,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "უკვე დადასტურებული ჯავშნის დეტალები გამიმეორეთ; ახალი არ შექმნათ.",
+      "translation_en": "Repeat the details of the already confirmed booking; do not create a new one.",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "status",
+          "form": "none",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": null,
+        "destination_result": {
+          "source": "synthetic_destination",
+          "status": "confirmed",
+          "observed_at": "2030-05-14T09:59:55+04:00",
+          "idempotency_key": "idempotency_example_10",
+          "offer_id": "offer_A",
+          "booking_id": "booking_example_10",
+          "reason_code": "idempotency_match"
+        }
+      },
+      "expected": {
+        "mode": "no_write",
+        "permitted_next_action": "return_verified_existing_booking",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": true
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "replace_idempotency_key"
+      ],
+      "rationale": "Only this fixture includes a simulated confirmed destination result matching both the operation key and the immutable offer. Return that existing result without another create. The completion flag is a hypothetical permission within this synthetic case, never evidence of a real OMO booking."
+    },
+    {
+      "case_id": "BS-11",
+      "scenario": "uncertain_write",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_11",
+        "write_status": "uncertain",
+        "create_attempts": 1,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "წინა მცდელობის შემდეგ პასუხი არ მიმიღია. ჯავშანი შეიქმნა?",
+      "translation_en": "I received no response after the previous attempt. Was the booking created?",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "status",
+          "form": "none",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": {
+          "source": "synthetic_destination",
+          "offer_id": "offer_A",
+          "observed_at": "2030-05-14T09:59:40+04:00",
+          "status": "available"
+        },
+        "destination_result": {
+          "source": "synthetic_destination",
+          "status": "unknown",
+          "observed_at": "2030-05-14T09:59:55+04:00",
+          "idempotency_key": "idempotency_example_11",
+          "offer_id": "offer_A",
+          "booking_id": null,
+          "reason_code": "response_lost_after_submission"
+        }
+      },
+      "expected": {
+        "mode": "reconcile",
+        "permitted_next_action": "look_up_original_write_outcome",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "treat_timeout_as_definite_failure",
+        "retry_with_new_idempotency_key"
+      ],
+      "rationale": "A response lost after submission does not prove that no booking was created. Preserve the original operation key and reconcile against an authoritative destination result before considering any retry. A temporarily missing lookup result is not necessarily proof of absence; unresolved uncertainty needs an honest status and human handoff."
+    },
+    {
+      "case_id": "BS-12",
+      "scenario": "known_safe_failure",
+      "synthetic": true,
+      "timezone": "Asia/Tbilisi",
+      "state": {
+        "now": "2030-05-14T10:00:00+04:00",
+        "current_offer": {
+          "offer_id": "offer_A",
+          "service_id": "service_A",
+          "resource_id": "resource_A",
+          "person_id": "person_example",
+          "start_at": "2030-05-15T15:00:00+04:00",
+          "end_at": "2030-05-15T15:30:00+04:00"
+        },
+        "prior_offers": [],
+        "caller_cancelled": false,
+        "idempotency_key": "idempotency_example_12",
+        "write_status": "failed_no_write",
+        "create_attempts": 1,
+        "write_guards": {
+          "conditional_slot_write": true,
+          "durable_idempotency": true
+        }
+      },
+      "utterance_ka": "თუ ჯავშანი არ შექმნილა, ოპერატორთან დამაკავშირეთ.",
+      "translation_en": "If no booking was created, connect me to an operator.",
+      "evidence": {
+        "initial_request": null,
+        "utterance_annotation": {
+          "speaker": "caller",
+          "intent": "handoff",
+          "form": "none",
+          "offer_id": "offer_A",
+          "requested_start_at": null
+        },
+        "availability": {
+          "source": "synthetic_destination",
+          "offer_id": "offer_A",
+          "observed_at": "2030-05-14T09:59:40+04:00",
+          "status": "available"
+        },
+        "destination_result": {
+          "source": "synthetic_destination",
+          "status": "rejected_no_write",
+          "observed_at": "2030-05-14T09:59:55+04:00",
+          "idempotency_key": "idempotency_example_12",
+          "offer_id": "offer_A",
+          "booking_id": null,
+          "reason_code": "policy_rejection_before_write"
+        }
+      },
+      "expected": {
+        "mode": "handoff",
+        "permitted_next_action": "handoff_known_no_write_failure",
+        "max_create_calls": 0,
+        "may_claim_booking_confirmed": false
+      },
+      "prohibited_actions": [
+        "unguarded_create",
+        "blind_retry",
+        "claim_completion_without_matching_verified_result",
+        "create_booking",
+        "claim_handoff_was_completed",
+        "silently_change_business_rules"
+      ],
+      "rationale": "The fixture explicitly stipulates an authoritative rejection before any write effect, not merely an error status or a timeout. Route the known no-write failure and relevant synthetic context to a human rather than retrying or promising success. A handoff request is not proof that a person received it."
+    }
+  ]
+}

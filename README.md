@@ -6,6 +6,21 @@
 
 This checklist helps a business, implementation team, or technology partner decide whether a voice AI workflow is ready to move from an idea to a controlled pilot. It is intentionally vendor-neutral. It does not replace legal, security, or compliance review.
 
+## Runnable examples / გასაშვები მაგალითები
+
+[Explore 12 synthetic Georgian booking-safety cases](examples/booking-safety/):
+current-offer consent, corrected times, stale availability, quoted or background
+agreement, duplicate prevention and uncertain write outcomes. The companion
+includes Georgian/English fixtures, an English explainer, a Georgian guide and
+standard-library Python checks.
+
+ეს [12 სინთეზური ორენოვანი მაგალითი](examples/booking-safety/) აჩვენებს
+თანხმობის, ხელმისაწვდომობისა და მოქმედების საზღვრებს. მაგალითები არ არის
+რეალური მომხმარებლების საუბრები ან OMO-ს მუშაობის შედეგების გაზომვა.
+
+**Not a product benchmark:** passing the local checks does not establish Georgian
+language understanding, live booking correctness or production readiness.
+
 ## How to use it
 
 Mark every item before launch:
