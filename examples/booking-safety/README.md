@@ -11,6 +11,7 @@ destination result is synthetic. No real customer record is included.
 
 - [English explanation with a short Georgian summary](EXPLAINER.md)
 - [ქართული გზამკვლევი: ჯავშნის თანხმობის გადამოწმება](GUIDE_KA.md)
+- [Hugging Face dataset viewer: the same 12 synthetic examples](https://huggingface.co/datasets/vajelski/georgian-booking-safety-examples)
 - [Machine-readable bilingual cases](booking-safety-cases.json)
 - [Local validator](verify_cases.py) and [unit/mutation tests](test_verify_cases.py)
 - [Verification scope and results](VERIFICATION.md)
