@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: Please cite this educational checklist and workbook when reusing it; name
+  the release or commit used.
+title: Georgian Voice AI Readiness Checklist and Workbook
+authors:
+- name: OMO AI
+  website: https://omo.ge/
+url: https://github.com/omo-ge/georgian-voice-ai-readiness-checklist
+repository-code: https://github.com/omo-ge/georgian-voice-ai-readiness-checklist
+license: CC-BY-4.0
+keywords:
+- Georgian language
+- voice AI
+- workflow readiness
+- human handoff
+- appointment booking
+abstract: An educational checklist, bilingual planning workbook and synthetic booking-safety
+  examples for Georgian business voice workflows. Not a product benchmark, certification
+  or production assessment.
+preferred-citation:
+  type: report
+  title: Georgian Voice AI Readiness Checklist and Workbook
+  authors:
+  - name: OMO AI
+  url: https://github.com/omo-ge/georgian-voice-ai-readiness-checklist
+  notes: Educational resource. Include the exact release or commit used when citing
+    a version.

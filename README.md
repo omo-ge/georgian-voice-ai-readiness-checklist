@@ -21,6 +21,18 @@ standard-library Python checks.
 **Not a product benchmark:** passing the local checks does not establish Georgian
 language understanding, live booking correctness or production readiness.
 
+## Download the workbook / ჩამოტვირთეთ სამუშაო ცხრილი
+
+[Open the 38-row bilingual readiness workbook](worksheets/) — CSV and equivalent
+JSON with owner, status, due date and evidence-reference fields. Every row starts
+`not_assessed`; it is a blank template, not proof that a deployment is ready.
+
+[38-პუნქტიანი ორენოვანი სამუშაო ცხრილი](worksheets/) ხელმისაწვდომია CSV და JSON
+ფორმატებში. მიუთითეთ პასუხისმგებელი, სტატუსი, ვადა და შემოწმების მტკიცებულება.
+შევსებული ასლი შეინახეთ პირადად; მომხმარებელთა მონაცემები საჯაროდ არ ატვირთოთ.
+
+For attribution and version-specific reuse, see [CITATION.cff](CITATION.cff).
+
 ## How to use it
 
 Mark every item before launch:
@@ -139,6 +151,7 @@ A Georgian voice AI workflow is ready for a controlled pilot when it has:
 - [ ] გროვდება და ინახება მხოლოდ საჭირო მინიმალური მონაცემი.
 - [ ] აუდიოსა და ტრანსკრიპტზე წვდომა როლების მიხედვით იმართება.
 - [ ] საჩივრის, გადაუდებელი ან მაღალი რისკის შემთხვევისთვის არსებობს ესკალაციის გზა.
+- [ ] საჭიროების შემთხვევაში, გაშვებამდე პროცესს ამოწმებენ უსაფრთხოებისა და იურიდიული გუნდები.
 
 ## 5. ინტეგრაციები და საიმედოობა
 
@@ -147,6 +160,7 @@ A Georgian voice AI workflow is ready for a controlled pilot when it has:
 - [ ] დროის ზონა მკაფიოდ არის განსაზღვრული და ყველგან ერთნაირად გამოიყენება.
 - [ ] retry და idempotency წესები თავიდან იცილებს დუბლირებულ მოქმედებებს.
 - [ ] აღწერილია concurrency, ლიმიტები და პიკური დატვირთვის ვარაუდები.
+- [ ] პროცესისთვის არსებობს მონიტორინგის ქვეშ მყოფი სტატუსის გვერდი ან შიდა ჯანმრთელობის ხედი.
 
 ## 6. ტესტირება გაშვებამდე
 
@@ -155,12 +169,14 @@ A Georgian voice AI workflow is ready for a controlled pilot when it has:
 - [ ] ყოველი კრიტიკული მოქმედება მოწმდება საბოლოო სისტემაში და არა მხოლოდ ტრანსკრიპტში.
 - [ ] ადამიანთან გადართვისას კონტექსტი გადადის ისე, რომ მომხმარებელს ყველაფრის გამეორება არ დასჭირდეს.
 - [ ] გაშვებისა და rollback-ის კრიტერიუმები აღწერილია.
+- [ ] ტესტებს ამოწმებს ადამიანი, რომელსაც ესმის ბიზნესპროცესი და არა მხოლოდ ტექნოლოგია.
 
 ## 7. მონიტორინგი გაშვების შემდეგ
 
 - [ ] ჩანს ზარის სტატუსი, შედეგი, შეცდომა, დაყოვნება და ადამიანთან გადართვა.
 - [ ] დაშვებულ შემთხვევებში არსებობს აუდიოს/ტრანსკრიპტის ხარისხის პერიოდული შემოწმება.
 - [ ] წარუმატებელი მოქმედება ქმნის რეალურ alert-ს ან follow-up ამოცანას.
+- [ ] ყოველკვირეული განხილვა მოიცავს ბიზნესშედეგებსა და ხარისხის პრობლემებს და არა მხოლოდ ზარების რაოდენობას.
 - [ ] ცვლილებები ვერსირდება და ხელახლა ტესტირდება გამოქვეყნებამდე.
 
 ## მინიმალური Launch Gate
